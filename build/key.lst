@@ -1,0 +1,105 @@
+ARM GAS  /var/folders/dv/rmwv5dbs4b703h_lvs531f700000gp/T//ccnSFPcp.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"key.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Seek_GPIO,"ax",%progbits
+  20              		.align	2
+  21              		.global	Seek_GPIO
+  22              		.thumb
+  23              		.thumb_func
+  25              	Seek_GPIO:
+  26              	.LFB65:
+  27              		.file 1 "Src/key.c"
+   1:Src/key.c     **** // 假设所有指定的输入口都是 GPIO E
+   2:Src/key.c     **** #include "stm32f1xx_hal.h"
+   3:Src/key.c     **** unsigned char *Seek_GPIO(unsigned char *Regested_Inputs) {
+  28              		.loc 1 3 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 10B5     		push	{r4, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 4, -8
+  37              		.cfi_offset 14, -4
+  38 0002 0446     		mov	r4, r0
+   4:Src/key.c     ****   if (!HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4)) {
+  39              		.loc 1 4 0
+  40 0004 1021     		movs	r1, #16
+  41 0006 0848     		ldr	r0, .L5
+  42              	.LVL1:
+  43 0008 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+  44              	.LVL2:
+  45 000c 28B9     		cbnz	r0, .L2
+   5:Src/key.c     ****     HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, 0);
+  46              		.loc 1 5 0
+  47 000e 0022     		movs	r2, #0
+  48 0010 2021     		movs	r1, #32
+  49 0012 0548     		ldr	r0, .L5
+  50 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  51              	.LVL3:
+  52 0018 04E0     		b	.L3
+  53              	.L2:
+ARM GAS  /var/folders/dv/rmwv5dbs4b703h_lvs531f700000gp/T//ccnSFPcp.s 			page 2
+
+
+   6:Src/key.c     ****   } else {
+   7:Src/key.c     ****     HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, 1);   
+  54              		.loc 1 7 0
+  55 001a 0122     		movs	r2, #1
+  56 001c 2021     		movs	r1, #32
+  57 001e 0248     		ldr	r0, .L5
+  58 0020 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  59              	.LVL4:
+  60              	.L3:
+   8:Src/key.c     ****   }
+   9:Src/key.c     ****   return Regested_Inputs;
+  10:Src/key.c     **** };
+  61              		.loc 1 10 0
+  62 0024 2046     		mov	r0, r4
+  63 0026 10BD     		pop	{r4, pc}
+  64              	.LVL5:
+  65              	.L6:
+  66              		.align	2
+  67              	.L5:
+  68 0028 00180140 		.word	1073813504
+  69              		.cfi_endproc
+  70              	.LFE65:
+  72              		.text
+  73              	.Letext0:
+  74              		.file 2 "/Users/bytedance/Documents/STM32/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/include/machi
+  75              		.file 3 "/Users/bytedance/Documents/STM32/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/include/sys/_
+  76              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+  77              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+  78              		.file 6 "Drivers/CMSIS/Include/core_cm3.h"
+ARM GAS  /var/folders/dv/rmwv5dbs4b703h_lvs531f700000gp/T//ccnSFPcp.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 key.c
+/var/folders/dv/rmwv5dbs4b703h_lvs531f700000gp/T//ccnSFPcp.s:20     .text.Seek_GPIO:0000000000000000 $t
+/var/folders/dv/rmwv5dbs4b703h_lvs531f700000gp/T//ccnSFPcp.s:25     .text.Seek_GPIO:0000000000000000 Seek_GPIO
+/var/folders/dv/rmwv5dbs4b703h_lvs531f700000gp/T//ccnSFPcp.s:68     .text.Seek_GPIO:0000000000000028 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_ReadPin
+HAL_GPIO_WritePin
