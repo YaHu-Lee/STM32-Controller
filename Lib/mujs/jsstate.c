@@ -27,18 +27,18 @@ static void *js_defaultalloc(void *actx, void *ptr, int size)
 		free(ptr);
 		return NULL;
 	}
-	return realloc(ptr, (size_t)size);
+	return malloc((size_t)size);
 }
 
 static void js_defaultreport(js_State *J, const char *message)
 {
-	fputs(message, stderr);
-	fputc('\n', stderr);
+	// fputs(message, stderr);
+	// fputc('\n', stderr);
 }
 
 static void js_defaultpanic(js_State *J)
 {
-	js_report(J, "uncaught exception");
+	// js_report(J, "uncaught exception");
 	/* return to javascript to abort */
 }
 
@@ -297,8 +297,7 @@ js_State *js_newstate(js_Alloc alloc, void *actx, int flags)
 
 	if (!alloc)
 		alloc = js_defaultalloc;
-
-	J = alloc(actx, NULL, sizeof *J);
+	J = (js_State *)alloc(actx, NULL, sizeof *J);
 	if (!J)
 		return NULL;
 	memset(J, 0, sizeof(*J));

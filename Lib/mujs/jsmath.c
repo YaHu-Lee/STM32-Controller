@@ -161,7 +161,7 @@ static void Math_min(js_State *J)
 
 void jsB_initmath(js_State *J)
 {
-	Math_init_random(J);
+	// Math_init_random(J);
 	js_pushobject(J, jsV_newobject(J, JS_CMATH, J->Object_prototype));
 	{
 		jsB_propn(J, "E", 2.7182818284590452354);
