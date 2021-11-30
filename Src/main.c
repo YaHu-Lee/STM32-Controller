@@ -20,6 +20,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "key.h"
+#include "mujs.h"
+#include <stdlib.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -92,6 +94,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   unsigned char gpios[2];
+  js_State *J = js_newstate(NULL, NULL, JS_STRICT);
   while (1)
   {
     Seek_GPIO(gpios);
