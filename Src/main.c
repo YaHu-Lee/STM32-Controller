@@ -19,8 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "key.h"
 #include "mujs.h"
+#include "stm32f1xx_hal.h"
 #include <stdlib.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -56,7 +56,13 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+static void Seek_GPIO() {
+  if (!HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4)) {
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, 0);
+  } else {
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, 1);   
+  }
+};
 /* USER CODE END 0 */
 
 /**
@@ -93,12 +99,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  unsigned char gpios[2];
   js_State *J = js_newstate(NULL, NULL, JS_STRICT);
-  while (1)
-  {
-    Seek_GPIO(gpios);
-  }
+  js_newcfunction(J, Seek_GPIO, "SeekIO", 0);
+  js_setglobal(J, "SeekIO");
+  js_dostring(J, "while(true){SeekIO()}");
+  // while (1)
+  // {
+  //   Seek_GPIO();
+  // }
   /* USER CODE END 3 */
 }
 

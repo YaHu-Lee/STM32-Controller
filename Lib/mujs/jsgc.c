@@ -151,8 +151,8 @@ void js_gc(js_State *J, int report)
 	jsG_markobject(J, mark, J->Boolean_prototype);
 	jsG_markobject(J, mark, J->Number_prototype);
 	jsG_markobject(J, mark, J->String_prototype);
-	jsG_markobject(J, mark, J->RegExp_prototype);
-	jsG_markobject(J, mark, J->Date_prototype);
+	// jsG_markobject(J, mark, J->RegExp_prototype);
+	// jsG_markobject(J, mark, J->Date_prototype);
 
 	jsG_markobject(J, mark, J->Error_prototype);
 	jsG_markobject(J, mark, J->EvalError_prototype);

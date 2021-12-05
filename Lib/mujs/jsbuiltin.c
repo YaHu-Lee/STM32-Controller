@@ -203,11 +203,11 @@ void jsB_init(js_State *J)
 	J->Boolean_prototype = jsV_newobject(J, JS_CBOOLEAN, J->Object_prototype);
 	J->Number_prototype = jsV_newobject(J, JS_CNUMBER, J->Object_prototype);
 	J->String_prototype = jsV_newobject(J, JS_CSTRING, J->Object_prototype);
-	J->Date_prototype = jsV_newobject(J, JS_CDATE, J->Object_prototype);
+	// J->Date_prototype = jsV_newobject(J, JS_CDATE, J->Object_prototype);
 
-	J->RegExp_prototype = jsV_newobject(J, JS_CREGEXP, J->Object_prototype);
-	J->RegExp_prototype->u.r.prog = js_regcompx(J->alloc, J->actx, "(?:)", 0, NULL);
-	J->RegExp_prototype->u.r.source = js_strdup(J, "(?:)");
+	// J->RegExp_prototype = jsV_newobject(J, JS_CREGEXP, J->Object_prototype);
+	// J->RegExp_prototype->u.r.prog = js_regcompx(J->alloc, J->actx, "(?:)", 0, NULL);
+	// J->RegExp_prototype->u.r.source = js_strdup(J, "(?:)");
 
 	/* All the native error types */
 	J->Error_prototype = jsV_newobject(J, JS_CERROR, J->Object_prototype);
@@ -225,11 +225,11 @@ void jsB_init(js_State *J)
 	jsB_initboolean(J);
 	jsB_initnumber(J);
 	jsB_initstring(J);
-	jsB_initregexp(J);
+	// jsB_initregexp(J);
 	// jsB_initdate(J);
 	// jsB_initerror(J); // may cause error on stm32
-	jsB_initmath(J);
-	jsB_initjson(J);
+	// jsB_initmath(J);
+	// jsB_initjson(J);
 
 	/* Initialize the global object */
 	js_pushnumber(J, NAN);
@@ -241,10 +241,10 @@ void jsB_init(js_State *J)
 	js_pushundefined(J);
 	js_defglobal(J, "undefined", JS_READONLY | JS_DONTENUM | JS_DONTCONF);
 
-	// jsB_globalf(J, "parseInt", jsB_parseInt, 1);
+	jsB_globalf(J, "parseInt", jsB_parseInt, 1);
 	// jsB_globalf(J, "parseFloat", jsB_parseFloat, 1);
-	// jsB_globalf(J, "isNaN", jsB_isNaN, 1);
-	// jsB_globalf(J, "isFinite", jsB_isFinite, 1);
+	jsB_globalf(J, "isNaN", jsB_isNaN, 1);
+	jsB_globalf(J, "isFinite", jsB_isFinite, 1);
 
 	// jsB_globalf(J, "decodeURI", jsB_decodeURI, 1);
 	// jsB_globalf(J, "decodeURIComponent", jsB_decodeURIComponent, 1);
