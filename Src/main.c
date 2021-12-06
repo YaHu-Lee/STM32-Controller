@@ -56,13 +56,17 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-static void Seek_GPIO() {
-  if (!HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4)) {
-    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, 0);
-  } else {
-    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, 1);   
-  }
-};
+static void WritePIN0(js_State *J) {
+  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, 0);
+  js_pushundefined(J);
+}
+static void WritePIN1(js_State *J) {
+  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, 1);
+  js_pushundefined(J);
+}
+static void ReadPIN(js_State *J) {
+  js_pushboolean(J, HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4));
+}
 /* USER CODE END 0 */
 
 /**
@@ -100,9 +104,13 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   js_State *J = js_newstate(NULL, NULL, JS_STRICT);
-  js_newcfunction(J, Seek_GPIO, "SeekIO", 0);
-  js_setglobal(J, "SeekIO");
-  js_dostring(J, "while(true){SeekIO()}");
+  js_newcfunction(J, WritePIN0, "WritePIN0", 0);
+  js_setglobal(J, "WritePIN0");
+  js_newcfunction(J, WritePIN1, "WritePIN1", 0);
+  js_setglobal(J, "WritePIN1");
+  js_newcfunction(J, ReadPIN, "ReadPIN", 0);
+  js_setglobal(J, "ReadPIN");
+  js_dostring(J, "while(true){if(!ReadPIN()){WritePIN0()}else{WritePIN1()}}");
   // while (1)
   // {
   //   Seek_GPIO();
